@@ -26,13 +26,22 @@ function isInArray (element, array) {
 //     alert("Non è contenuto.")
 //      }
 
+
+
+// BONUS:
+// con difficoltà 0 => tra 1 e 100
+// con difficoltà 1 => tra 1 e 80
+// con difficoltà 2 => tra 1 e 50
+
+
+
 //\\  CONSEGNA //\\
 
 // 1) Il computer deve generare 16 numeri NON DUPLICATI tra 1 e 100.
 // while non si ferma fino a che non ci sono 16 elementi all'interno dell'array BOMBS 
 
 while (bombs.length < 16)  {
-    createdBomb = getRandomNumber(1, 100);
+    var createdBomb = getRandomNumber(1, 100);
     // condizione tramite la quale finchè si genera un numero già presente nell'array (già generato) continuerà a generare numeri (fino a 16 - bombe)
     if (!isInArray(createdBomb, bombs)) {
         bombs.push(createdBomb);
@@ -51,10 +60,17 @@ while (attempts.length < maxAttempts && gameOver == false) {
         console.log("L'utente ha inserito: " + userInput);
     } while (isNaN(userInput) || userInput < 1 || userInput > 100);
 
-    // stessa condizione di prima, finchè si inserisce un numero già inserito continua a richiedermi l'input.
+ if (isInArray(userInput, attempts)) {
+        alert("Hai già inserito questo numero: riprova!")
+        console.log("L'utente ha provato più volte ad inserire il numero qui sopra " + isInArray(userInput, attempts))
+    }
+
+    // finchè si inserisce un numero già inserito continua a richiedermi l'input.
     if (!isInArray(userInput, attempts)) {
     attempts.push(userInput);
-    } 
+    }
+    
+   
     // condizione di vittoria/fine gioco
     if (isInArray(userInput, bombs)) {
         // gameOver = true;
@@ -67,7 +83,7 @@ while (attempts.length < maxAttempts && gameOver == false) {
 if (attempts.length == maxAttempts) {
     alert("COMPLIMENTI! \nHai vinto! \nHai totalizzando il massimo punteggio: 84 punti");
 }
-console.log("Questi sono i miei numeri inseriti:")
+console.log("L'utente ha inserito i seguenti numeri:")
 console.log(attempts);
 
 // 4) la partita termina quando l'user inserisce un numero vietato oppure raggiunge il maxAttempts. 
@@ -78,3 +94,6 @@ console.log(attempts);
 
 
 
+
+
+// DOMANDE: come poter inserire un alert di "Hai inserito una parola non valida, un numero non valido e DOVE?"
