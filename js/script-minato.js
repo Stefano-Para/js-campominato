@@ -1,6 +1,7 @@
 // LE MIE ______________ VARIABILI _______________
 var bombs = [];
 var attempts = [];
+var arrayInput = [];
 var maxAttempts = 84;
 var finalScore = 0;
 
@@ -37,13 +38,37 @@ while (bombs.length < 16)  {
         bombs.push(createdBomb);
     }
 } 
-console.log("Queste sono le bombe:");
+console.log("Queste sono le [bombs]:");
 console.log(bombs); 
 
 // 2) Il pc deve chiedere all'utente (100-16) volte di inserire un numero alla volta sempre compreso tra 1 e 100 e anche in questo caso NON DOPPIO (finchè l'utente inserisce un numero già inserito, continua a chiedere = DO WHILE).
+var gameOver = false;
+while (attempts.length < maxAttempts && gameOver == false) {
 
+    var userInput;
+    do {
+        userInput = parseInt(prompt("Inserisci un numero compreso tra 1 e 100:"));
+        console.log("L'utente ha inserito: " + userInput);
+    } while (isNaN(userInput) || userInput < 1 || userInput > 100);
 
+    // stessa condizione di prima, finchè si inserisce un numero già inserito continua a richiedermi l'input.
+    if (!isInArray(userInput, attempts)) {
+    attempts.push(userInput);
+    } 
+    // condizione di vittoria/fine gioco
+    if (isInArray(userInput, bombs)) {
+        // gameOver = true;
+        alert("Mi dispiace =( \nHai perso.")
+        alert("Il tuo SCORE è: " + (attempts.length - 1) + ".") //-1 per dare lo score giusto
+        break;
+    }
+}
 // 3) Se il numero inserito è presente nella lista dei numeri generati (check in array) la partita termina sennò si continuano a chiedere numeri fino a "completarli" .
+if (attempts.length == maxAttempts) {
+    alert("COMPLIMENTI! \nHai vinto! \nHai totalizzando il massimo punteggio: 84 punti");
+}
+console.log("Questi sono i miei numeri inseriti:")
+console.log(attempts);
 
 // 4) la partita termina quando l'user inserisce un numero vietato oppure raggiunge il maxAttempts. 
 
