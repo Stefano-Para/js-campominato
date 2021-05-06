@@ -4,6 +4,7 @@ var attempts = [];
 var arrayInput = [];
 var maxAttempts = 84;
 var finalScore = 0;
+var maxNumber;
 
 // LE MIE ______________ FUNZIONI _______________
 // Funzione che serve a generare un numero random che utilizzerò per la creazione delle bombe
@@ -32,6 +33,26 @@ function isInArray (element, array) {
 // con difficoltà 0 => tra 1 e 100
 // con difficoltà 1 => tra 1 e 80
 // con difficoltà 2 => tra 1 e 50
+var level = parseInt(prompt("Scegli la difficoltà: \n0 - Facile\n1 - Medio\n2 - Difficile"));
+
+switch (level) {
+    case 2:
+        maxNumber = 50;
+        alert("Selezionato difficoltà \"DIFFICILE\": hai 16 bombe su 50 slot.")
+        break;
+    case 1:
+        maxNumber = 80;
+        alert("Selezionato difficoltà \"MEDIA\": hai 16 bombe su 80 slot.")
+        break; 
+    default:
+        maxNumber = 100;
+        alert("Selezionato difficoltà \"FACILE\": hai 16 bombe su 100 slot.")
+        break;
+}
+// cosi non scrivo 3 volte all'interno dello switch 
+maxAttempts = maxNumber - 16;
+
+
 
 
 
@@ -42,7 +63,7 @@ function isInArray (element, array) {
 
 while (bombs.length < 16)  {
     
-    createdBomb = getRandomNumber(1, 100);
+    createdBomb = getRandomNumber(1, maxNumber);
     // condizione tramite la quale finchè si genera un numero già presente nell'array (già generato) continuerà a generare numeri (fino a 16 - bombe)
     if (!isInArray(createdBomb, bombs)) {
         bombs.push(createdBomb);
@@ -58,7 +79,7 @@ console.log(bombs);
 var gameOver = false;
 while (attempts.length < maxAttempts && gameOver == false) {
 
-    var messaggio = "Inserisci un numero compreso tra 1 e 100";
+    var messaggio = "Inserisci un numero compreso tra 1 e " + maxNumber;
     var userInput;
     var firstTime = true;
     do {
@@ -70,7 +91,8 @@ while (attempts.length < maxAttempts && gameOver == false) {
             messaggio = "Inserimento non corretto. " + messaggio;
             firstTime = false;
         }
-    } while (isNaN(userInput) || userInput < 1 || userInput > 100);
+    } while (isNaN(userInput) || userInput < 1 || userInput > maxNumber);
+
 
 if (isInArray(userInput, attempts)) {
         alert("Hai già inserito questo numero: riprova!")
@@ -110,3 +132,4 @@ console.log(attempts);
 
 
 // DOMANDE: come poter inserire un alert di "Hai inserito una parola non valida, un numero non valido e DOVE?"
+
