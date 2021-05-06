@@ -41,7 +41,8 @@ function isInArray (element, array) {
 // while non si ferma fino a che non ci sono 16 elementi all'interno dell'array BOMBS 
 
 while (bombs.length < 16)  {
-    var createdBomb = getRandomNumber(1, 100);
+    
+    createdBomb = getRandomNumber(1, 100);
     // condizione tramite la quale finchè si genera un numero già presente nell'array (già generato) continuerà a generare numeri (fino a 16 - bombe)
     if (!isInArray(createdBomb, bombs)) {
         bombs.push(createdBomb);
@@ -50,20 +51,32 @@ while (bombs.length < 16)  {
 console.log("Queste sono le [bombs]:");
 console.log(bombs); 
 
+
+
+
 // 2) Il pc deve chiedere all'utente (100-16) volte di inserire un numero alla volta sempre compreso tra 1 e 100 e anche in questo caso NON DOPPIO (finchè l'utente inserisce un numero già inserito, continua a chiedere = DO WHILE).
 var gameOver = false;
 while (attempts.length < maxAttempts && gameOver == false) {
 
+    var messaggio = "Inserisci un numero compreso tra 1 e 100";
     var userInput;
+    var firstTime = true;
     do {
-        userInput = parseInt(prompt("Inserisci un numero compreso tra 1 e 100:"));
+        userInput = parseInt(prompt(messaggio));
         console.log("L'utente ha inserito: " + userInput);
+
+        // condizione per cui l'inserimento è risultato non corretto (non un numero oppure sotto 1 o sopra 100)
+        if (firstTime) {
+            messaggio = "Inserimento non corretto. " + messaggio;
+            firstTime = false;
+        }
     } while (isNaN(userInput) || userInput < 1 || userInput > 100);
 
- if (isInArray(userInput, attempts)) {
+if (isInArray(userInput, attempts)) {
         alert("Hai già inserito questo numero: riprova!")
-        console.log("L'utente ha provato più volte ad inserire il numero qui sopra " + isInArray(userInput, attempts))
+        console.log("L'utente ha provato più volte ad inserire il numero qui sopra ")
     }
+
 
     // finchè si inserisce un numero già inserito continua a richiedermi l'input.
     if (!isInArray(userInput, attempts)) {
